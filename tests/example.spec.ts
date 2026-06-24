@@ -18,7 +18,7 @@ test('login with valid credentials', async ({ page }) => {
   await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
 });
 
-test('login with incorrect credentials', async ({ page }) => {
+test('login with invalid credentials', async ({ page }) => {
   await page.getByPlaceholder('Username').fill('standard_user');
   await page.getByPlaceholder('Password').fill('wrong_password');
   await page.getByRole('button', { name: 'Login' }).click();
