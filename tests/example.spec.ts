@@ -24,3 +24,10 @@ test('login with invalid credentials', async ({ page }) => {
   await page.getByRole('button', { name: 'Login' }).click();
   await expect(page.getByText('Epic sadface')).toBeVisible();
 });
+
+test('login with an error message', async ({ page }) => {
+  await page.getByPlaceholder('Username').fill('locked_out_user');
+  await page.getByPlaceholder('Password').fill('secret_sauce');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.getByText('Epic sadface: Sorry, this user has been locked out.')).toBeVisible();
+});
