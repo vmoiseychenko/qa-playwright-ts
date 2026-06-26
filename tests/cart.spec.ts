@@ -15,6 +15,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('The cart is not empty', async ({ page }) => {
+    await page.locator('.shopping_cart_link').click();
     await expect(page.locator('.cart_item')).toHaveCount(1);
   });
 
