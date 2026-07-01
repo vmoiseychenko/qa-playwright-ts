@@ -9,5 +9,6 @@ export class CartPage {
   }
 
   async removeItem() {
-    await this.page.getByRole('button', { name: 'Remove' }).click();   }
+    await this.page.getByRole('button', { name: 'Remove' }).click();   
+    }
 }

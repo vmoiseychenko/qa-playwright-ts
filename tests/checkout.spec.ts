@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { CheckoutPage } from '../pages/CheckoutPage';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('https://www.saucedemo.com');
@@ -11,14 +12,9 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Checkout', async ({ page }) => {
-    await page.getByRole('button', { name: 'Checkout' }).click();
-    await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-one.html');
-    await page.getByPlaceholder('First Name').fill('A');
-    await page.getByPlaceholder('Last Name').fill('B');
-    await page.getByPlaceholder('Zip/Postal Code').fill('C');
-    await page.getByRole('button', { name: 'Continue' }).click();
-    await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-two.html');
-    await page.getByRole('button', { name: 'Finish' }).click();
-    await expect(page).toHaveURL('https://www.saucedemo.com/checkout-complete.html');
+    const checkoutPage = new CheckoutPage(page);
+    await checkoutPage.open();
+    await checkoutPage.fillForm('A', 'B', 'C');
+    await checkoutPage.finish();
     await expect(page.getByText('Thank you for your order!')).toBeVisible();
 });
