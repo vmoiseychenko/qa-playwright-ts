@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { UsersApiClient } from '../../api-clients/users.client';
+import { faker } from '@faker-js/faker';
 
 test('GET /users/1 returns user data', async ({ request }) => {
     const usersApi = new UsersApiClient(request);
@@ -31,21 +32,29 @@ test('GET /users returns 404 Not Found', async ({ request }) => {
 
 test('POST /users/add creates a new user', async ({ request }) => {
     const usersApi = new UsersApiClient(request);
-    const response = await usersApi.createUser({firstName:'Muhammad', age: 25 });
+    const newFirstName = faker.person.firstName();
+    const newAge = faker.number.int({ min: 18, max: 60 });
+
+    const response = await usersApi.createUser({
+        firstName: newFirstName,
+        age: newAge,
+      });
     const body = await response.json();
 
     expect(response.status()).toBe(201);
-    expect(body.firstName).toBe('Muhammad');
+    expect(body.firstName).toBe(newFirstName);
+    expect(body.age).toBe(newAge);
 });
 
 test('PUT /users/1 changes age', async ({ request }) => {
     const usersApi = new UsersApiClient(request);
-    const response = await usersApi.updateUser(1, { age: 100 });
+    const newAge = faker.number.int({ min: 18, max: 60 });
+    const response = await usersApi.updateUser(1, { age: newAge });
 
     const body = await response.json();
 
     expect(response.status()).toBe(200);
-    expect(body.age).toBe(100);
+    expect(body.age).toBe(newAge);
 });
 
 test('DELETE /users/1', async ({ request }) => {
