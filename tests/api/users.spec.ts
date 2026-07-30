@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { UsersApiClient } from '../../api-clients/users.client';
 import { faker } from '@faker-js/faker';
+import usersFixture from '../../fixtures/users.json';
+
 
 test('GET /users/1 returns user data', async ({ request }) => {
     const usersApi = new UsersApiClient(request);
@@ -65,3 +67,14 @@ test('DELETE /users/1', async ({ request }) => {
     expect(response.status()).toBe(200);
     expect(body.isDeleted).toBe(true);
 });
+
+for (const userData of usersFixture) {
+    test(`POST /users/add creates user with age ${userData.age}`, async ({ request }) => {
+      const usersApi = new UsersApiClient(request);
+      const response = await usersApi.createUser(userData);
+  
+      const body = await response.json();
+      expect(response.status()).toBe(201);
+      expect(body.firstName).toBe(userData.firstName);
+    });
+  }

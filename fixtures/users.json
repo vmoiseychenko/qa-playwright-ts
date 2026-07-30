@@ -1,0 +1,6 @@
+[
+    { "firstName": "Teen", "age": 13 },
+    { "firstName": "Adult", "age": 18 },
+    { "firstName": "Senior", "age": 99 },
+    { "firstName": "Invalid", "age": -5 }
+]
