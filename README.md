@@ -31,14 +31,14 @@ Built with a lightweight API client (`api-clients/users.client.ts`) wrapping `AP
 
 ## How to run
 
-\`\`\`
+```
 npm install
 npx playwright test
-\`\`\`
+```
 
 Run only UI or only API tests:
 
-\`\`\`
+```
 npx playwright test tests/ui
 npx playwright test tests/api
-\`\`\`
+```
